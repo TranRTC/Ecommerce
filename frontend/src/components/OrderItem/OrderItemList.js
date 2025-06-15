@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function OrderItemList() {
   const [orderItems, setOrderItems] = useState([]);
@@ -20,7 +21,7 @@ function OrderItemList() {
 
   return (
     <div>
-      <h2>Order Item List</h2>
+      <h2 className="list-title">Order Item List</h2>
       <input
         type="text"
         placeholder="Search order items..."
@@ -28,16 +29,30 @@ function OrderItemList() {
         onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "1em" }}
       />
-      <ul>
-        {filtered.map((oi) => (
-          <li key={oi.id}>
-            <strong>Order #{oi.order_id}</strong> | Product: {oi.product_name || oi.product_id} | Quantity: {oi.quantity}{" "}
-            <Link to={`/orderitems/detail/${oi.id}`}>
-              <button>Detail</button>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="entity-list">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((oi) => (
+            <tr key={oi.id}>
+              <td>{oi.order_id}</td>
+              <td>{oi.product_name || oi.product_id}</td>
+              <td>{oi.quantity}</td>
+              <td>
+                <Link to={`/orderitems/detail/${oi.id}`}>
+                  <button className="detail-btn">Detail</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

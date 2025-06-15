@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../pages/PageStyle.css";
 
 function ManufacturerAdd() {
   const [form, setForm] = useState({
@@ -35,8 +36,8 @@ function ManufacturerAdd() {
 
   return (
     <div>
-      <h2>Add Manufacturer</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="list-title">Add Manufacturer</h2>
+      <form className="entity-form" onSubmit={handleSubmit}>
         <div>
           <label>Name: </label>
           <input
@@ -62,9 +63,9 @@ function ManufacturerAdd() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Add</button>
+        <button type="submit" className="detail-btn">Add</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

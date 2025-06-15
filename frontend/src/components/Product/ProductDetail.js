@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -86,50 +87,47 @@ function ProductDetail() {
 
   return (
     <div>
-      <h2>Product Detail</h2>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label>Name: </label>
-          <input name="name" value={form.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Price: </label>
-          <input
-            name="price"
-            type="number"
-            step="0.01"
-            min="0"
-            value={form.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Description: </label>
-          <input name="description" value={form.description} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Manufacturer: </label>
-          <select
-            name="manufacturer_id"
-            value={form.manufacturer_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Manufacturer</option>
-            {manufacturers.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit">Update</button>
-        <button type="button" onClick={handleDelete} style={{ marginLeft: "1em", color: "red" }}>
+      <h2 className="list-title">Product Detail</h2>
+      <form className="entity-form" onSubmit={handleUpdate}>
+        <label>Name: </label>
+        <input name="name" value={form.name} onChange={handleChange} required />
+        <label>Price: </label>
+        <input
+          name="price"
+          type="number"
+          step="0.01"
+          min="0"
+          value={form.price}
+          onChange={handleChange}
+          required
+        />
+        <label>Description: </label>
+        <input name="description" value={form.description} onChange={handleChange} />
+        <label>Manufacturer: </label>
+        <select
+          name="manufacturer_id"
+          value={form.manufacturer_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Manufacturer</option>
+          {manufacturers.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+        <button type="submit" className="detail-btn">Update</button>
+        <button
+          type="button"
+          className="detail-btn"
+          style={{ background: "#e53935", marginLeft: "1em" }}
+          onClick={handleDelete}
+        >
           Delete
         </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

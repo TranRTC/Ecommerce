@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../../pages/PageStyle.css';
 
 function OrderItemAdd() {
   const [form, setForm] = useState({
@@ -55,54 +56,48 @@ function OrderItemAdd() {
 
   return (
     <div>
-      <h2>Add Order Item</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Order: </label>
-          <select
-            name="order_id"
-            value={form.order_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Order</option>
-            {orders.map((o) => (
-              <option key={o.id} value={o.id}>
-                Order #{o.id}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Product: </label>
-          <select
-            name="product_id"
-            value={form.product_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Product</option>
-            {products.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Quantity: </label>
-          <input
-            name="quantity"
-            type="number"
-            min="1"
-            value={form.quantity}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Add</button>
+      <h2 className="list-title">Add Order Item</h2>
+      <form className="entity-form" onSubmit={handleSubmit}>
+        <label>Order: </label>
+        <select
+          name="order_id"
+          value={form.order_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Order</option>
+          {orders.map((o) => (
+            <option key={o.id} value={o.id}>
+              Order #{o.id}
+            </option>
+          ))}
+        </select>
+        <label>Product: </label>
+        <select
+          name="product_id"
+          value={form.product_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Product</option>
+          {products.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
+        </select>
+        <label>Quantity: </label>
+        <input
+          name="quantity"
+          type="number"
+          min="1"
+          value={form.quantity}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" className="detail-btn">Add</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

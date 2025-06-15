@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function OrderDetail() {
   const { id } = useParams();
@@ -83,50 +84,49 @@ function OrderDetail() {
 
   return (
     <div>
-      <h2>Order Detail</h2>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label>Customer: </label>
-          <select
-            name="customer_id"
-            value={form.customer_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Customer</option>
-            {customers.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Order Date: </label>
-          <input
-            name="order_date"
-            type="date"
-            value={form.order_date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Status: </label>
-          <select name="status" value={form.status} onChange={handleChange}>
-            <option value="pending">Pending</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
-        <button type="submit">Update</button>
-        <button type="button" onClick={handleDelete} style={{ marginLeft: "1em", color: "red" }}>
+      <h2 className="list-title">Order Detail</h2>
+      <form className="entity-form" onSubmit={handleUpdate}>
+        <label>Customer: </label>
+        <select
+          name="customer_id"
+          value={form.customer_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Customer</option>
+          {customers.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+        <label>Order Date: </label>
+        <input
+          name="order_date"
+          type="date"
+          value={form.order_date}
+          onChange={handleChange}
+          required
+        />
+        <label>Status: </label>
+        <select name="status" value={form.status} onChange={handleChange}>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <button type="submit" className="detail-btn">Update</button>
+        <button
+          type="button"
+          className="detail-btn"
+          style={{ background: "#e53935", marginLeft: "1em" }}
+          onClick={handleDelete}
+        >
           Delete
         </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

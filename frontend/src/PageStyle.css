@@ -1,0 +1,115 @@
+/* === Hub Page Titles === */
+.hub-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1976d2;
+  margin-bottom: 1.2rem;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+/* === Navigation Bar for Hub Pages === */
+.hub-nav {
+  margin-bottom: 2rem;
+}
+
+/* === Navigation Links (Home, List, Add) === */
+.home-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1976d2;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.home-link:hover {
+  background: #1976d2;
+  color: #fff;
+}
+
+/* === Entity List Table === */
+.entity-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.entity-list th, .entity-list td {
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.entity-list th {
+  background: #f3f6fa;
+  font-weight: 700;
+}
+
+.entity-list tr:hover {
+  background: #f0f7ff;
+}
+
+/* === Detail Button === */
+.detail-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.detail-btn:hover {
+  background: #125ea2;
+}
+
+/* === Entity Form === */
+.entity-form {
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.08);
+}
+
+.entity-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.entity-form input,
+.entity-form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.entity-form button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.entity-form button[type="button"] {
+  background: #e53935;
+}
+
+.entity-form button:hover {
+  opacity: 0.9;
+} 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function ManufacturerList() {
   const [manufacturers, setManufacturers] = useState([]);
@@ -19,7 +20,7 @@ function ManufacturerList() {
 
   return (
     <div>
-      <h2>Manufacturer List</h2>
+      <h2 className="list-title">Manufacturer List</h2>
       <input
         type="text"
         placeholder="Search manufacturers..."
@@ -28,16 +29,30 @@ function ManufacturerList() {
         style={{ marginBottom: "1em" }}
       />
       <div>Current search: {search}</div>
-      <ul>
-        {filtered.map((m) => (
-          <li key={m.id}>
-            <strong>{m.name}</strong> | {m.country} | {m.website}
-            <Link to={`/manufacturers/detail/${m.id}`}>
-              <button>Detail</button>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="entity-list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Website</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((m) => (
+            <tr key={m.id}>
+              <td>{m.name}</td>
+              <td>{m.country}</td>
+              <td>{m.website}</td>
+              <td>
+                <Link to={`/manufacturers/detail/${m.id}`}>
+                  <button className="detail-btn">Detail</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

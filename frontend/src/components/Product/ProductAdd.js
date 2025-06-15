@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../../pages/PageStyle.css';
 
 function ProductAdd() {
   const [form, setForm] = useState({
@@ -50,48 +51,39 @@ function ProductAdd() {
 
   return (
     <div>
-      <h2>Add Product</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name: </label>
-          <input name="name" value={form.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Price: </label>
-          <input
-            name="price"
-            type="number"
-            step="0.01"
-            min="0"
-            value={form.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Description: </label>
-          <input name="description" value={form.description} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Manufacturer: </label>
-          {/* 2. Display manufacturers in a dropdown */}
-          <select
-            name="manufacturer_id"
-            value={form.manufacturer_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Manufacturer</option>
-            {manufacturers.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit">Add</button>
+      <h2 className="list-title">Add Product</h2>
+      <form className="entity-form" onSubmit={handleSubmit}>
+        <label>Name: </label>
+        <input name="name" value={form.name} onChange={handleChange} required />
+        <label>Price: </label>
+        <input
+          name="price"
+          type="number"
+          step="0.01"
+          min="0"
+          value={form.price}
+          onChange={handleChange}
+          required
+        />
+        <label>Description: </label>
+        <input name="description" value={form.description} onChange={handleChange} />
+        <label>Manufacturer: </label>
+        <select
+          name="manufacturer_id"
+          value={form.manufacturer_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Manufacturer</option>
+          {manufacturers.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+        <button type="submit" className="detail-btn">Add</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

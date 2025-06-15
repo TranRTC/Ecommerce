@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "../../pages/PageStyle.css";
 
 function ManufacturerDetail() {
   const { id } = useParams();
@@ -71,26 +72,25 @@ function ManufacturerDetail() {
 
   return (
     <div>
-      <h2>Manufacturer Detail</h2>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label>Name: </label>
-          <input name="name" value={form.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Country: </label>
-          <input name="country" value={form.country} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Website: </label>
-          <input name="website" value={form.website} onChange={handleChange} />
-        </div>
-        <button type="submit">Update</button>
-        <button type="button" onClick={handleDelete} style={{ marginLeft: "1em", color: "red" }}>
+      <h2 className="hub-title">Manufacturer Detail</h2>
+      <form className="entity-form" onSubmit={handleUpdate}>
+        <label>Name: </label>
+        <input name="name" value={form.name} onChange={handleChange} required />
+        <label>Country: </label>
+        <input name="country" value={form.country} onChange={handleChange} />
+        <label>Website: </label>
+        <input name="website" value={form.website} onChange={handleChange} />
+        <button type="submit" className="detail-btn">Update</button>
+        <button
+          type="button"
+          className="detail-btn"
+          style={{ background: "#e53935", marginLeft: "1em" }}
+          onClick={handleDelete}
+        >
           Delete
         </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

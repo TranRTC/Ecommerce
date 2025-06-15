@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../../pages/PageStyle.css';
 
 function OrderAdd() {
   const [form, setForm] = useState({
@@ -47,47 +48,41 @@ function OrderAdd() {
 
   return (
     <div>
-      <h2>Add Order</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Customer: </label>
-          <select
-            name="customer_id"
-            value={form.customer_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Customer</option>
-            {customers.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Order Date: </label>
-          <input
-            name="order_date"
-            type="date"
-            value={form.order_date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Status: </label>
-          <select name="status" value={form.status} onChange={handleChange}>
-            <option value="pending">Pending</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-        </div>
-        <button type="submit">Add</button>
+      <h2 className="list-title">Add Order</h2>
+      <form className="entity-form" onSubmit={handleSubmit}>
+        <label>Customer: </label>
+        <select
+          name="customer_id"
+          value={form.customer_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Customer</option>
+          {customers.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+        <label>Order Date: </label>
+        <input
+          name="order_date"
+          type="date"
+          value={form.order_date}
+          onChange={handleChange}
+          required
+        />
+        <label>Status: </label>
+        <select name="status" value={form.status} onChange={handleChange}>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <button type="submit" className="detail-btn">Add</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

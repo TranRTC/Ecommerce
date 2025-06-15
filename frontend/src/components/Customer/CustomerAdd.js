@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../../pages/PageStyle.css';
 
 function CustomerAdd() {
   const [form, setForm] = useState({
@@ -35,23 +36,17 @@ function CustomerAdd() {
 
   return (
     <div>
-      <h2>Add Customer</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name: </label>
-          <input name="name" value={form.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Email: </label>
-          <input name="email" type="email" value={form.email} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Address: </label>
-          <input name="address" value={form.address} onChange={handleChange} />
-        </div>
-        <button type="submit">Add</button>
+      <h2 className="list-title">Add Customer</h2>
+      <form className="entity-form" onSubmit={handleSubmit}>
+        <label>Name: </label>
+        <input name="name" value={form.name} onChange={handleChange} required />
+        <label>Email: </label>
+        <input name="email" type="email" value={form.email} onChange={handleChange} required />
+        <label>Address: </label>
+        <input name="address" value={form.address} onChange={handleChange} />
+        <button type="submit" className="detail-btn">Add</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="form-message">{message}</div>}
     </div>
   );
 }

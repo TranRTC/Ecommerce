@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function OrderItemDetail() {
   const { id } = useParams();
@@ -91,8 +92,8 @@ function OrderItemDetail() {
 
   return (
     <div>
-      <h2>Order Item Detail</h2>
-      <form onSubmit={handleUpdate}>
+      <h2 className="list-title">Order Item Detail</h2>
+      <form className="entity-form" onSubmit={handleUpdate}>
         <div>
           <label>Order: </label>
           <select

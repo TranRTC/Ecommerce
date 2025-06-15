@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function CustomerList() {
   const [customers, setCustomers] = useState([]);
@@ -19,7 +20,7 @@ function CustomerList() {
 
   return (
     <div>
-      <h2>Customer List</h2>
+      <h2 className="list-title">Customer List</h2>
       <input
         type="text"
         placeholder="Search customers..."
@@ -27,16 +28,30 @@ function CustomerList() {
         onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "1em" }}
       />
-      <ul>
-        {filtered.map((c) => (
-          <li key={c.id}>
-            <strong>{c.name}</strong> | {c.email} | {c.address}{" "}
-            <Link to={`/customers/detail/${c.id}`}>
-              <button>Detail</button>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="entity-list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((c) => (
+            <tr key={c.id}>
+              <td>{c.name}</td>
+              <td>{c.email}</td>
+              <td>{c.address}</td>
+              <td>
+                <Link to={`/customers/detail/${c.id}`}>
+                  <button className="detail-btn">Detail</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ function ProductList() {
 
   return (
     <div>
-      <h2>Product List</h2>
+      <h2 className="list-title">Product List</h2>
       <input
         type="text"
         placeholder="Search products..."
@@ -26,16 +27,32 @@ function ProductList() {
         onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "1em" }}
       />
-      <ul>
-        {filtered.map((p) => (
-          <li key={p.id}>
-            <strong>{p.name}</strong> | ${p.price} | {p.description} | Manufacturer ID: {p.manufacturer_id}{" "}
-            <Link to={`/products/detail/${p.id}`}>
-              <button>Detail</button>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="entity-list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Manufacturer ID</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((p) => (
+            <tr key={p.id}>
+              <td>{p.name}</td>
+              <td>${p.price}</td>
+              <td>{p.description}</td>
+              <td>{p.manufacturer_id}</td>
+              <td>
+                <Link to={`/products/detail/${p.id}`}>
+                  <button className="detail-btn">Detail</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

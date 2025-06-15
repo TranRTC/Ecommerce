@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../../pages/PageStyle.css';
 
 function OrderList() {
   const [orders, setOrders] = useState([]);
@@ -21,7 +22,7 @@ function OrderList() {
 
   return (
     <div>
-      <h2>Order List</h2>
+      <h2 className="list-title">Order List</h2>
       <input
         type="text"
         placeholder="Search orders..."
@@ -29,16 +30,32 @@ function OrderList() {
         onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "1em" }}
       />
-      <ul>
-        {filtered.map((o) => (
-          <li key={o.id}>
-            <strong>Order #{o.id}</strong> | Customer: {o.customer_name || o.customer_id} | Date: {o.order_date} | Status: {o.status}{" "}
-            <Link to={`/orders/detail/${o.id}`}>
-              <button>Detail</button>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="entity-list">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((o) => (
+            <tr key={o.id}>
+              <td>{o.id}</td>
+              <td>{o.customer_name || o.customer_id}</td>
+              <td>{o.order_date}</td>
+              <td>{o.status}</td>
+              <td>
+                <Link to={`/orders/detail/${o.id}`}>
+                  <button className="detail-btn">Detail</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
