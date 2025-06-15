@@ -5,19 +5,18 @@ import ProductPage from "./pages/ProductPage";
 import CustomerPage from "./pages/CustomerPage";
 import OrderPage from "./pages/OrderPage";
 import OrderItemPage from "./pages/OrderItemPage";
+import "./App.css";
 
 function Home() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <nav>
-        <ul>
-          <li><Link to="/manufacturers">Manufacturers</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/customers">Customers</Link></li>
-          <li><Link to="/orders">Orders</Link></li>
-          <li><Link to="/orderitems">OrderItems</Link></li>
-        </ul>
+      <h1 className="home-title">E-Commerce Management Application</h1>
+      <nav className="home-nav">
+        <Link to="/manufacturers" className="home-link">Manufacturers</Link>
+        <Link to="/products" className="home-link">Products</Link>
+        <Link to="/customers" className="home-link">Customers</Link>
+        <Link to="/orders" className="home-link">Orders</Link>
+        <Link to="/orderitems" className="home-link">OrderItems</Link>
       </nav>
     </div>
   );

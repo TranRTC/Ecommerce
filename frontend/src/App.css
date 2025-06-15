@@ -36,3 +36,64 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.home-container {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background: #1976d2;
+  color: #fff;
+}
+
+.home-title {
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+  margin-bottom: 2rem;
+  color: #22223b;
+  letter-spacing: 1px;
+}
+
+.home-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1976d2;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.home-link:hover {
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+}
