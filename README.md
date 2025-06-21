@@ -103,9 +103,25 @@ Each entity has 5 CRUD endpoints:
 
 **Total: 25 endpoints** (5 entities × 5 operations)
 
-### Example Usage
+### How to Interact with the Application
 
-#### Create a Manufacturer
+#### **Primary Method: Use the Web Interface**
+**For normal usage, simply use the React frontend at `http://localhost:3000`**
+
+- **Navigate** to different pages (Manufacturers, Products, Customers, Orders, OrderItems)
+- **Add** new records using the "Add New" forms
+- **View** all records in organized tables
+- **Edit** existing records using the detail pages
+- **Delete** records with confirmation dialogs
+
+This is the **recommended way** for regular users and testing the application functionality.
+
+#### **Secondary Method: Direct API Testing**
+**For developers, API testing, and automation**
+
+You can also interact directly with the API endpoints using tools like curl, Postman, or any HTTP client:
+
+##### Example: Create a Manufacturer via API
 ```bash
 curl -X POST http://localhost:5000/manufacturers \
   -H "Content-Type: application/json" \
@@ -116,7 +132,7 @@ curl -X POST http://localhost:5000/manufacturers \
   }'
 ```
 
-#### Get All Products
+##### Example: Get All Products via API
 ```bash
 curl http://localhost:5000/products
 ```
