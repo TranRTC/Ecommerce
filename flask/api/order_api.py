@@ -1,67 +1,88 @@
 # order_api.py
-# This file will contain CRUD API endpoints for the Order resource.
+# This file contains RESTful API endpoints for the Order resource.
 
-from flask import Blueprint, request, jsonify, abort
+from flask import request
+from flask_restful import Resource
+from marshmallow import ValidationError
 from models import db, Order
 from schema import OrderSchema
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
+from .base_resource import BaseResource
 
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)
 
-order_bp = Blueprint('order_bp', __name__)
+class OrderListResource(BaseResource):
+    """Resource for handling order list operations (GET, POST)"""
+    
+    def get(self):
+        """Get all orders"""
+        try:
+            orders = Order.query.all()
+            return orders_schema.dump(orders)
+        except Exception as e:
+            return self.handle_general_error(e)
+    
+    def post(self):
+        """Create a new order"""
+        try:
+            data = order_schema.load(request.json)
+            # Set order_date if not provided
+            if 'order_date' not in data:
+                data['order_date'] = datetime.now()
+            order = Order(**data)
+            db.session.add(order)
+            
+            if self.safe_commit():
+                return order_schema.dump(order), 201
+            else:
+                return {"error": "Order creation failed. Check customer_id."}, 400
+                
+        except ValidationError as e:
+            return self.handle_validation_error(e)
+        except Exception as e:
+            return self.handle_general_error(e)
 
-# POST: Create a new order
-@order_bp.route('/orders', methods=['POST'])
-def create_order():
-    try:
-        data = order_schema.load(request.json)
-        order = Order(**data)
-        db.session.add(order)
-        db.session.commit()
-        return jsonify(order_schema.dump(order)), 201
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({"error": "Database integrity error."}), 400
-    except Exception as err:
-        return jsonify({"error": str(err)}), 400
-
-# GET: List all orders
-@order_bp.route('/orders', methods=['GET'])
-def get_orders():
-    orders = Order.query.all()
-    return jsonify(orders_schema.dump(orders))
-
-# GET: Get a single order
-@order_bp.route('/orders/<int:order_id>', methods=['GET'])
-def get_order(order_id):
-    order = Order.query.get(order_id)
-    if not order:
-        return jsonify({"error": "Order not found"}), 404
-    return jsonify(order_schema.dump(order))
-
-# PUT: Update order
-@order_bp.route('/orders/<int:id>', methods=['PUT'])
-def update_order(id):
-    order = Order.query.get_or_404(id)
-    data = request.get_json()
-    order.customer_id = data.get('customer_id', order.customer_id)
-    order_date_str = data.get('order_date')
-    if order_date_str:
-        order.order_date = datetime.strptime(order_date_str, '%Y-%m-%d')
-    order.status = data.get('status', order.status)
-    try:
-        db.session.commit()
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({"error": "Database integrity error."}), 400
-    return jsonify(order_schema.dump(order))
-
-# DELETE: Delete order
-@order_bp.route('/orders/<int:id>', methods=['DELETE'])
-def delete_order(id):
-    order = Order.query.get_or_404(id)
-    db.session.delete(order)
-    db.session.commit()
-    return '', 204 
+class OrderResource(BaseResource):
+    """Resource for handling individual order operations (GET, PUT, DELETE)"""
+    
+    def get(self, order_id):
+        """Get a single order"""
+        try:
+            order = Order.query.get(order_id)
+            if not order:
+                return {"error": "Order not found"}, 404
+            return order_schema.dump(order)
+        except Exception as e:
+            return self.handle_general_error(e)
+    
+    def put(self, order_id):
+        """Update an order"""
+        try:
+            data = order_schema.load(request.json)
+            order = Order.query.get_or_404(order_id)
+            
+            # Update fields
+            for key, value in data.items():
+                setattr(order, key, value)
+            
+            if self.safe_commit():
+                return order_schema.dump(order)
+            else:
+                return {"error": "Order update failed. Check customer_id."}, 400
+                
+        except ValidationError as e:
+            return self.handle_validation_error(e)
+        except Exception as e:
+            return self.handle_general_error(e)
+    
+    def delete(self, order_id):
+        """Delete an order"""
+        try:
+            order = Order.query.get_or_404(order_id)
+            db.session.delete(order)
+            db.session.commit()
+            return '', 204
+        except Exception as e:
+            return self.handle_general_error(e) 

@@ -1,38 +1,56 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
-from config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, SECRET_KEY
+from flask_restful import Api
+from config import config
 from models import db
 
-def create_app():
+def create_app(config_name=None):
+    """Application factory function"""
+    if config_name is None:
+        config_name = 'default'
+    
     app = Flask(__name__)
-    CORS(app)
-
-    # Load config
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
-    app.config['SECRET_KEY'] = SECRET_KEY
-
+    
+    # Load configuration
+    app.config.from_object(config[config_name])
+    
+    # Initialize extensions
     db.init_app(app)
     migrate = Migrate(app, db)
-
-    # Register resource Blueprints here
-    from api.manufacturer_api import manufacturer_bp
-    app.register_blueprint(manufacturer_bp)
-    from api.customer_api import customer_bp
-    app.register_blueprint(customer_bp)
-    from api.product_api import product_bp
-    app.register_blueprint(product_bp)
-    from api.order_api import order_bp
-    app.register_blueprint(order_bp)
-    from api.orderitem_api import orderitem_bp
-    app.register_blueprint(orderitem_bp)
+    CORS(app)
     
-    # ...register other resource Blueprints as needed
-
+    # Initialize Flask-RESTful API
+    api = Api(app)
+    
+    # Register RESTful resources
+    from api.manufacturer_api import ManufacturerResource, ManufacturerListResource
+    from api.customer_api import CustomerResource, CustomerListResource
+    from api.product_api import ProductResource, ProductListResource
+    from api.order_api import OrderResource, OrderListResource
+    from api.orderitem_api import OrderItemResource, OrderItemListResource
+    
+    # Add resources to API
+    api.add_resource(ManufacturerListResource, '/manufacturers')
+    api.add_resource(ManufacturerResource, '/manufacturers/<int:manufacturer_id>')
+    api.add_resource(CustomerListResource, '/customers')
+    api.add_resource(CustomerResource, '/customers/<int:customer_id>')
+    api.add_resource(ProductListResource, '/products')
+    api.add_resource(ProductResource, '/products/<int:product_id>')
+    api.add_resource(OrderListResource, '/orders')
+    api.add_resource(OrderResource, '/orders/<int:order_id>')
+    api.add_resource(OrderItemListResource, '/orderitems')
+    api.add_resource(OrderItemResource, '/orderitems/<int:orderitem_id>')
+    
+    # Simple home route
+    @app.route('/')
+    def home():
+        return jsonify({"message": "Welcome to the eCommerce API! The backend is running."})
+    
     return app
 
+# Create app instance
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=app.config.get('DEBUG', True)) 
